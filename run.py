@@ -34,7 +34,7 @@ def login():
         }) 
     except:
         return jsonify({
-            "error": "Something went wrong"
+            "error": "You have provided an empty request body"
         })
     username = request.json['username']
     password = request.json['password']
@@ -47,7 +47,26 @@ def login():
         "message": "message"
     })
     
+@app.route('/signup', methods=['POST'])
+def signup():
+    try:
+        if not request.json or 'username' not in request.json or 'password' not in request.json or 'phone' not in request.json:
+             return jsonify({
+                 "error": "username, password and phone are required"
+            })
+    except:
+         return jsonify({
+            "error": "You have provided an empty request body"
+        })
+    username = request.json['username']
+    password = request.json['password']
+    phone = request.json['phone']
 
+    print(request.json['username'])
+
+    return jsonify({
+        "message": "message"
+    })
 if __name__ == '__main__':
     app.run(debug=True)## Shows all error messages and bugs
 
